@@ -58,7 +58,7 @@ jobs:
         echo DATABASE_NAME=quantdb >> .env
         echo DATABASE_USER=quantuser >> .env
         echo DATABASE_PASSWORD=postgres >> .env
-        echo DATABASE_HOST=qleader-db >> .env
+        echo DATABASE_HOST=localhost >> .env
         echo DATABASE_PORT=5432 >> .env
         python manage.py makemigrations qleader
         python manage.py migrate
