@@ -54,11 +54,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run migrations
       run: |
-        python manage.py makemigrations qleader
-        python manage.py migrate
-    - name: Run unit tests
-      run: |
-        if [ -f requirements-testing.txt ]; then pip install -r requirements-testing.txt; fi
         echo ROOT_DIR= >> .env
         echo DEBUG=True >> .env
         echo DJANGO_SECRET_KEY=NotDisclosed >> .env
@@ -69,6 +64,11 @@ jobs:
         echo DATABASE_PORT=5432 >> .env
         echo GOOGLE_OAUTH2_KEY=NotDisclosed >> .env
         echo GOOGLE_OAUTH2_SECRET=NotDisclosed >> .env
+        python manage.py makemigrations qleader
+        python manage.py migrate
+    - name: Run unit tests
+      run: |
+        if [ -f requirements-testing.txt ]; then pip install -r requirements-testing.txt; fi
         docker-compose run qleader-web py.test
     - name: Lint with flake8
       run: flake8 . --show-source --statistics
