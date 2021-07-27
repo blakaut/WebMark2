@@ -54,6 +54,12 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run migrations
       run: |
+        echo DATABASE_NAME=quantdb >> .env
+        echo DATABASE_USER=quantuser >> .env
+        echo DATABASE_PASSWORD=postgres >> .env
+        echo DATABASE_HOST=qleader-db >> .env
+        echo DATABASE_PORT=5432 >> .env
+        echo DJANGO_SECRET_KEY=NotDisclosed >> .env
         python manage.py makemigrations qleader
         python manage.py migrate
     - name: Run unit tests
@@ -76,15 +82,15 @@ jobs:
     - name: Set up Docker Buildx
       if: ${{ github.event_name == 'push'}}
       uses: docker/setup-buildx-action@v1
-    - name: Login to DockerHub
-      if: ${{ github.event_name == 'push'}}
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build WebMark and push
-      if: ${{ github.event_name == 'push'}}
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: blakaut/qleader:latest
+#    - name: Login to DockerHub
+#      if: ${{ github.event_name == 'push'}}
+#      uses: docker/login-action@v1
+#      with:
+#        username: ${{ secrets.DOCKERHUB_USERNAME }}
+#        password: ${{ secrets.DOCKERHUB_TOKEN }}
+#    - name: Build WebMark and push
+#      if: ${{ github.event_name == 'push'}}
+#      uses: docker/build-push-action@v2
+#      with:
+#        push: true
+#        tags: blakaut/qleader:latest
