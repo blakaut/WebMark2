@@ -19,7 +19,7 @@ jobs:
           POSTGRES_USER: quantuser
           POSTGRES_PASSWORD: NotDisclosed
           POSTGRES_DB: quantdb
-          POSTGRES_HOST: qleader-db
+          POSTGRES_HOST: localhost
           POSTGRES_PORT: ${{ job.services.postgres.port[5432] }}
         ports:
           - 5432:5432
