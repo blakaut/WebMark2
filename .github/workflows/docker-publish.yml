@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgres:
+      qleader-db:
         image: postgres:13.1
         env:
           POSTGRES_USER: quantuser
